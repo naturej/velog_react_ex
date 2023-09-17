@@ -5,8 +5,17 @@ import styled from "styled-components";
 const MobileSelectPage = () => {
   const triggerRef = useRef(null);
   const [selectedVal, setSelectedVal] = useState([]);
-  let msInstance = null;
+  let msInstance = useRef(null);
   const today = new Date();
+
+  const dateToStr = (date) => {
+    const year = date.getFullYear();
+    const month = ("0" + (date.getMonth() + 1)).slice(-2);
+    const day = ("0" + date.getDate()).slice(-2);
+    return `${year}.${month}.${day}`;
+  };
+
+  const todayStr = dateToStr(today);
 
   // 년, 월, 일 data 배열
   const yearArr = Array(5)
@@ -20,13 +29,14 @@ const MobileSelectPage = () => {
   );
 
   useEffect(() => {
-    if (!msInstance) {
-      msInstance = new MobileSelect({
+    if (!msInstance.current) {
+      msInstance.current = new MobileSelect({
         trigger: triggerRef.current,
         title: "날짜를 선택해주세요.",
         connector: ".",
         ensureBtnText: "확인",
         cancelBtnText: "취소",
+        initValue: todayStr,
         wheels: [{ data: yearArr }, { data: monthArr }, { data: dayArr }],
         onChange: (data) => {
           setSelectedVal(data);
@@ -34,11 +44,11 @@ const MobileSelectPage = () => {
       });
     }
     return () => {
-      if (!msInstance) {
-        msInstance.destroy(); // Destroying instance
+      if (!msInstance.current) {
+        msInstance.current.destroy(); // Destroying instance
       }
     };
-  }, []);
+  }, [yearArr, monthArr, dayArr, todayStr]);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -58,13 +68,6 @@ const MobileSelectPage = () => {
     const date = selectedVal.join(".");
     const selectDateStr = dateToStr(new Date(date));
     return date === selectDateStr;
-  };
-
-  const dateToStr = (date) => {
-    const year = date.getFullYear();
-    const month = ("0" + (date.getMonth() + 1)).slice(-2);
-    const day = ("0" + date.getDate()).slice(-2);
-    return `${year}.${month}.${day}`;
   };
 
   return (
