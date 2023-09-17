@@ -34,28 +34,29 @@ const MobileSelectPage = () => {
       });
     }
     return () => {
-      msInstance?.destroy(); // Destroying instance
+      if (!msInstance) {
+        msInstance.destroy(); // Destroying instance
+      }
     };
   }, []);
 
   const onSubmit = (e) => {
     e.preventDefault();
 
+    // 날짜 미선택 시
+    if (selectedVal.length === 0) return alert("날짜를 선택해주세요.");
+
     // 유효성 검사 실패 시
     if (!validateData()) return alert("유효하지 않은 날짜입니다.");
 
-    alert(
-      `선택하신 날짜는 ${selectedVal[0]}년 ${selectedVal[1]}월 ${selectedVal[2]}일입니다.`
-    );
+    const [year, month, day] = selectedVal;
+    alert(`선택하신 날짜는 ${year}년 ${month}월 ${day}일입니다.`);
   };
 
   // 유효성 검사 함수
   const validateData = () => {
     const date = selectedVal.join(".");
-    console.log(date);
-
     const selectDateStr = dateToStr(new Date(date));
-    console.log(selectDateStr, date);
     return date === selectDateStr;
   };
 
@@ -71,7 +72,11 @@ const MobileSelectPage = () => {
       <h3>🗓️ 날짜를 선택해주세요.</h3>
       <form onSubmit={onSubmit}>
         <div>
-          <div className="mobile-select-box" ref={triggerRef}></div>
+          <div className="mobile-select-box" ref={triggerRef}>
+            {selectedVal.length === 0
+              ? "날짜를 선택해주세요"
+              : selectedVal.join(".")}
+          </div>
         </div>
         <button type="submit" className="button" id="btn-submit">
           확인
