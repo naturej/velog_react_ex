@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/velog_react_ex/static/css/main.5cd43f67.css",
-    "main.js": "/velog_react_ex/static/js/main.064c1fde.js",
+    "main.js": "/velog_react_ex/static/js/main.704da2a8.js",
     "static/js/787.aff05db8.chunk.js": "/velog_react_ex/static/js/787.aff05db8.chunk.js",
     "index.html": "/velog_react_ex/index.html",
     "main.5cd43f67.css.map": "/velog_react_ex/static/css/main.5cd43f67.css.map",
-    "main.064c1fde.js.map": "/velog_react_ex/static/js/main.064c1fde.js.map",
+    "main.704da2a8.js.map": "/velog_react_ex/static/js/main.704da2a8.js.map",
     "787.aff05db8.chunk.js.map": "/velog_react_ex/static/js/787.aff05db8.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.5cd43f67.css",
-    "static/js/main.064c1fde.js"
+    "static/js/main.704da2a8.js"
   ]
 }
